@@ -43,8 +43,8 @@ class ToastyApplication : Application() {
                         System.currentTimeMillis(),
                         System.currentTimeMillis()
                     ).toInt(),
-                    SocketHandler.getDateInStringFormat(Calendar.getInstance().time).toLong(),
-                    SocketHandler.getDateInStringFormat(Calendar.getInstance().time).toLong(),
+                    System.currentTimeMillis(),
+                    System.currentTimeMillis(),
                     jsonObject
                 )
             }
