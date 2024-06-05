@@ -23,7 +23,8 @@ class ToastyApplication: Application() {
             }
 
             override fun onActivityStarted(activity: Activity) {
-                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.callingActivity.toString()}")
+                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
+                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
             }
 
             override fun onActivityResumed(activity: Activity) {
