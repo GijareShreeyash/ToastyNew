@@ -79,7 +79,7 @@ object SocketHandler {
         jsonObject.put(SESSION_ID, TEST_SESSION_ID)
         val innerJSONObject = JSONObject()
         innerJSONObject.put(SCREEN_NAME, screenName)
-        innerJSONObject.put(EVENT_NAME, eventName)
+        innerJSONObject.put(EVENT_NAME, screenName)
         innerJSONObject.put(TIME_SPENT, timeSpent)
         innerJSONObject.put(START_TIME, startTime)
         innerJSONObject.put(END_TIME, endTime)
@@ -120,7 +120,7 @@ object SocketHandler {
     }
 
 
-    private fun getDateInStringFormat(startDate: Date): String {
+    fun getDateInStringFormat(startDate: Date): String {
         val sdf = SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault())
         return sdf.format(startDate)
     }

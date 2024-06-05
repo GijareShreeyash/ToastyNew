@@ -5,8 +5,11 @@ import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import com.reapmind.toasty.utils.SocketHandler
+import org.json.JSONException
+import org.json.JSONObject
+import java.util.Calendar
 
-class ToastyApplication: Application() {
+class ToastyApplication : Application() {
 
     private var activityCounter: Int = 0
 
@@ -25,14 +28,39 @@ class ToastyApplication: Application() {
             override fun onActivityStarted(activity: Activity) {
                 Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
                 Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
+
+                val jsonObject = JSONObject()
+                try {
+                    jsonObject.put("data", activity.localClassName)
+                    jsonObject.put("message", activity.localClassName)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+                SocketHandler.emitTrack(
+                    activity.localClassName,
+                    activity.localClassName,
+                    SocketHandler.findDifference(
+                        System.currentTimeMillis(),
+                        System.currentTimeMillis()
+                    ).toInt(),
+                    SocketHandler.getDateInStringFormat(Calendar.getInstance().time).toLong(),
+                    SocketHandler.getDateInStringFormat(Calendar.getInstance().time).toLong(),
+                    jsonObject
+                )
             }
 
             override fun onActivityResumed(activity: Activity) {
-                Log.i("APPLICATION_LIFECYCLE", "onActivityResumed${activity.callingActivity.toString()}")
+                Log.i(
+                    "APPLICATION_LIFECYCLE",
+                    "onActivityResumed${activity.callingActivity.toString()}"
+                )
             }
 
             override fun onActivityPaused(activity: Activity) {
-                Log.i("APPLICATION_LIFECYCLE", "onActivityPaused${activity.callingActivity.toString()}")
+                Log.i(
+                    "APPLICATION_LIFECYCLE",
+                    "onActivityPaused${activity.callingActivity.toString()}"
+                )
             }
 
             override fun onActivityStopped(activity: Activity) {
