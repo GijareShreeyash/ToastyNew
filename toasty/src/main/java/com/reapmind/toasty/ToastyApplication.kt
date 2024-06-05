@@ -23,19 +23,20 @@ class ToastyApplication: Application() {
             }
 
             override fun onActivityStarted(activity: Activity) {
-                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted")
+                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.callingActivity.toString()}")
             }
 
             override fun onActivityResumed(activity: Activity) {
-                Log.i("APPLICATION_LIFECYCLE", "onActivityResumed")
+                Log.i("APPLICATION_LIFECYCLE", "onActivityResumed${activity.callingActivity.toString()}")
             }
 
             override fun onActivityPaused(activity: Activity) {
-                Log.i("APPLICATION_LIFECYCLE", "onActivityPaused")
+                Log.i("APPLICATION_LIFECYCLE", "onActivityPaused${activity.callingActivity.toString()}")
             }
 
             override fun onActivityStopped(activity: Activity) {
-                if (activityCounter == 0 /*&& isAppGoingToBackground*/) {
+                activityCounter--
+                if (activityCounter == 0) {
                     SocketHandler.socketDisconnect();
                 }
             }
