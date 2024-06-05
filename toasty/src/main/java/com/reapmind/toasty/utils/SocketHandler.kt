@@ -61,7 +61,7 @@ object SocketHandler {
             APPLICATION_CLOSE,
             findDifference(socketStartTime.time, endTime.time).toInt(),
             getDateInStringFormat(socketStartTime).toLong(),
-            getDateInStringFormat(Calendar.getInstance().time).toLong(),
+            System.currentTimeMillis(),
             getDeviceInfo()
         )
         mSocket.disconnect()
