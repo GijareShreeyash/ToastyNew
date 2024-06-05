@@ -51,8 +51,8 @@ afterEvaluate {
                 from(components["release"])
 
                 groupId = "com.github.GijareShreeyash"
-                artifactId = "toasty"
-                version = "1.1"
+                artifactId = "ToastyNew"
+                version = "1.0.2"
             }
         }
     }
