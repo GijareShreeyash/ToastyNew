@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.reapmind.toasty.utils.SocketHandler
 import org.json.JSONException
 import org.json.JSONObject
@@ -47,6 +48,7 @@ class ToastyApplication : Application() {
                     System.currentTimeMillis(),
                     jsonObject
                 )
+                Toast.makeText(activity, "EventAdded", Toast.LENGTH_SHORT).show()
             }
 
             override fun onActivityResumed(activity: Activity) {
