@@ -25,7 +25,6 @@ class ToastyApplication : Application() {
 
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, p1: Bundle?) {
-
                 startTime = 0
                 startTime = System.currentTimeMillis()
             }
@@ -49,7 +48,13 @@ class ToastyApplication : Application() {
             }
 
             override fun onActivityStopped(activity: Activity) {
+            }
 
+            override fun onActivitySaveInstanceState(activity: Activity, p1: Bundle) {
+                Log.i("APPLICATION_LIFECYCLE", "onActivitySaveInstanceState")
+            }
+
+            override fun onActivityDestroyed(activity: Activity) {
                 Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
                 Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
 
@@ -72,14 +77,6 @@ class ToastyApplication : Application() {
                     jsonObject
                 )
                 Toast.makeText(activity, "EventAdded", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onActivitySaveInstanceState(activity: Activity, p1: Bundle) {
-                Log.i("APPLICATION_LIFECYCLE", "onActivitySaveInstanceState")
-            }
-
-            override fun onActivityDestroyed(activity: Activity) {
-                Log.i("APPLICATION_LIFECYCLE", "onActivityDestroyed")
             }
         })
 
