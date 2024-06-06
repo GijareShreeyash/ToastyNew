@@ -13,9 +13,11 @@ import java.util.Calendar
 class ToastyApplication : Application() {
 
     private var activityCounter: Int = 0
+    private var startTime: Long = 0L
 
     override fun onCreate() {
         super.onCreate()
+
 
 
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
@@ -24,31 +26,12 @@ class ToastyApplication : Application() {
                     SocketHandler.establishConnection();
                 }
                 activityCounter++;
+                startTime = 0
+                startTime = System.currentTimeMillis()
             }
 
             override fun onActivityStarted(activity: Activity) {
-                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
-                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
 
-                val jsonObject = JSONObject()
-                try {
-                    jsonObject.put("data", activity.localClassName)
-                    jsonObject.put("message", activity.localClassName)
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-                SocketHandler.emitTrack(
-                    activity.localClassName,
-                    activity.localClassName,
-                    SocketHandler.findDifference(
-                        System.currentTimeMillis(),
-                        System.currentTimeMillis()
-                    ).toInt(),
-                    System.currentTimeMillis(),
-                    System.currentTimeMillis(),
-                    jsonObject
-                )
-                Toast.makeText(activity, "EventAdded", Toast.LENGTH_SHORT).show()
             }
 
             override fun onActivityResumed(activity: Activity) {
@@ -66,6 +49,29 @@ class ToastyApplication : Application() {
             }
 
             override fun onActivityStopped(activity: Activity) {
+
+                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
+                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
+
+                val jsonObject = JSONObject()
+                try {
+                    jsonObject.put("data", activity.localClassName)
+                    jsonObject.put("message", activity.localClassName)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+                SocketHandler.emitTrack(
+                    activity.localClassName,
+                    activity.localClassName,
+                    SocketHandler.findDifference(
+                        startTime,
+                        System.currentTimeMillis()
+                    ).toInt(),
+                    startTime,
+                    System.currentTimeMillis(),
+                    jsonObject
+                )
+                Toast.makeText(activity, "EventAdded", Toast.LENGTH_SHORT).show()
                 activityCounter--
                 if (activityCounter == 0) {
                     SocketHandler.socketDisconnect();
@@ -82,5 +88,6 @@ class ToastyApplication : Application() {
         })
 
     }
+
 
 }
