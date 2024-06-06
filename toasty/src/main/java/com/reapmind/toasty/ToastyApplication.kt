@@ -18,14 +18,14 @@ class ToastyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-
+        if (activityCounter == 0) {
+            SocketHandler.establishConnection();
+        }
+        activityCounter++;
 
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, p1: Bundle?) {
-                if (activityCounter == 0) {
-                    SocketHandler.establishConnection();
-                }
-                activityCounter++;
+
                 startTime = 0
                 startTime = System.currentTimeMillis()
             }
@@ -72,10 +72,6 @@ class ToastyApplication : Application() {
                     jsonObject
                 )
                 Toast.makeText(activity, "EventAdded", Toast.LENGTH_SHORT).show()
-                activityCounter--
-                if (activityCounter == 0) {
-                    SocketHandler.socketDisconnect();
-                }
             }
 
             override fun onActivitySaveInstanceState(activity: Activity, p1: Bundle) {
@@ -87,6 +83,14 @@ class ToastyApplication : Application() {
             }
         })
 
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        activityCounter--
+        if (activityCounter == 0) {
+            SocketHandler.socketDisconnect();
+        }
     }
 
 
