@@ -66,10 +66,7 @@ class ToastyApplication : Application() {
                 )
                 listOfStartTime.removeAt(0)
 
-                activityCounter--
-                if (activityCounter == 0) {
-                    SocketHandler.socketDisconnect();
-                }
+
             }
 
             override fun onActivityStopped(activity: Activity) {
@@ -83,7 +80,10 @@ class ToastyApplication : Application() {
                 Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
                 Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
 
-
+                activityCounter--
+                if (activityCounter == 0) {
+                    SocketHandler.socketDisconnect();
+                }
             }
         })
 
