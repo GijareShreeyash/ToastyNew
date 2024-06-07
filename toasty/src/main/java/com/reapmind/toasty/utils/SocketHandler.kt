@@ -10,6 +10,7 @@ import com.reapmind.toasty.utils.Constants.EVENT_NAME
 import com.reapmind.toasty.utils.Constants.PROPERTIES
 import com.reapmind.toasty.utils.Constants.SCREEN_NAME
 import com.reapmind.toasty.utils.Constants.SESSION_ID
+import com.reapmind.toasty.utils.Constants.SOCKET_URL
 import com.reapmind.toasty.utils.Constants.START_TIME
 import com.reapmind.toasty.utils.Constants.TIME_SPENT
 import com.reapmind.toasty.utils.Constants.TRACK
@@ -48,7 +49,7 @@ object SocketHandler {
     fun establishConnection() {
         val opts = IO.Options()
         opts.path = "socket.io"
-        mSocket = IO.socket("${BuildConfig.SOCKET_URL}?userId=${TEST_USER_KEY}")
+        mSocket = IO.socket("$SOCKET_URL?userId=${TEST_USER_KEY}")
         socketStartTime = Calendar.getInstance().time
         emitDevice()
         mSocket.connect()
