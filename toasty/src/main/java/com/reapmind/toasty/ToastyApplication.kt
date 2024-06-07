@@ -23,10 +23,11 @@ class ToastyApplication : Application() {
         if (activityCounter == 0) {
             SocketHandler.establishConnection();
         }
-        activityCounter++;
+
 
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, p1: Bundle?) {
+                activityCounter++;
                 startTime = 0
                 startTime = System.currentTimeMillis()
                 listOfStartTime.add(startTime)
@@ -44,22 +45,6 @@ class ToastyApplication : Application() {
             }
 
             override fun onActivityPaused(activity: Activity) {
-                Log.i(
-                    "APPLICATION_LIFECYCLE",
-                    "onActivityPaused${activity.callingActivity.toString()}"
-                )
-            }
-
-            override fun onActivityStopped(activity: Activity) {
-            }
-
-            override fun onActivitySaveInstanceState(activity: Activity, p1: Bundle) {
-                Log.i("APPLICATION_LIFECYCLE", "onActivitySaveInstanceState")
-            }
-
-            override fun onActivityDestroyed(activity: Activity) {
-                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
-                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
 
                 val jsonObject = JSONObject()
                 try {
@@ -80,18 +65,38 @@ class ToastyApplication : Application() {
                     jsonObject
                 )
                 listOfStartTime.removeAt(0)
-                Toast.makeText(activity, "EventAdded", Toast.LENGTH_SHORT).show()
+
+                activityCounter--
+                if (activityCounter == 0) {
+                    SocketHandler.socketDisconnect();
+                }
+            }
+
+            override fun onActivityStopped(activity: Activity) {
+            }
+
+            override fun onActivitySaveInstanceState(activity: Activity, p1: Bundle) {
+                Log.i("APPLICATION_LIFECYCLE", "onActivitySaveInstanceState")
+            }
+
+            override fun onActivityDestroyed(activity: Activity) {
+                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
+                Log.i("APPLICATION_LIFECYCLE", "onActivityStarted${activity.localClassName}")
+
+
             }
         })
 
     }
 
+
+
     override fun onTerminate() {
         super.onTerminate()
-        activityCounter--
+        /*activityCounter--
         if (activityCounter == 0) {
             SocketHandler.socketDisconnect();
-        }
+        }*/
     }
 
 
