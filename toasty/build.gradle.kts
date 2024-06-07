@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -13,6 +15,11 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        val prop = Properties()
+        prop.load(project.rootProject.file("local.properties").inputStream())
+
+        buildConfigField("String", "SOCKET_URL", "\"${prop.getProperty("SOCKET_URL")}\"")
     }
 
     buildTypes {
@@ -30,6 +37,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 

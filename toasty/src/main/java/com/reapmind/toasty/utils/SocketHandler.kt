@@ -1,6 +1,7 @@
 package com.reapmind.toasty.utils
 
 import android.os.Build
+import com.reapmind.toasty.BuildConfig
 import com.reapmind.toasty.utils.Constants.DATE_TIME_FORMAT
 import com.reapmind.toasty.utils.Constants.DEVICE
 import com.reapmind.toasty.utils.Constants.END_TIME
@@ -48,7 +49,7 @@ object SocketHandler {
     fun establishConnection() {
         val opts = IO.Options()
         opts.path = "socket.io"
-        mSocket = IO.socket("$SOCKET_URL?userId=${TEST_USER_KEY}")
+        mSocket = IO.socket("${BuildConfig.SOCKET_URL}?userId=${TEST_USER_KEY}")
         socketStartTime = Calendar.getInstance().time
         emitDevice()
         mSocket.connect()
