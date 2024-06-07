@@ -15,6 +15,8 @@ class ToastyApplication : Application() {
     private var activityCounter: Int = 0
     private var startTime: Long = 0L
 
+    private var listOfStartTime: MutableList<Long> = mutableListOf()
+
     override fun onCreate() {
         super.onCreate()
 
@@ -27,6 +29,7 @@ class ToastyApplication : Application() {
             override fun onActivityCreated(activity: Activity, p1: Bundle?) {
                 startTime = 0
                 startTime = System.currentTimeMillis()
+                listOfStartTime.add(startTime)
             }
 
             override fun onActivityStarted(activity: Activity) {
@@ -69,13 +72,14 @@ class ToastyApplication : Application() {
                     activity.localClassName,
                     activity.localClassName,
                     SocketHandler.findDifference(
-                        startTime,
+                        listOfStartTime[0],
                         System.currentTimeMillis()
                     ).toInt(),
                     startTime,
                     System.currentTimeMillis(),
                     jsonObject
                 )
+                listOfStartTime.removeAt(0)
                 Toast.makeText(activity, "EventAdded", Toast.LENGTH_SHORT).show()
             }
         })
