@@ -6,6 +6,14 @@ plugins {
     id("maven-publish")
 }
 
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use { stream ->
+        localProperties.load(stream)
+    }
+}
+
 android {
     namespace = "com.reapmind.toasty"
     compileSdk = 34
@@ -16,10 +24,8 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
 
-        val prop = Properties()
-        prop.load(project.rootProject.file("local.properties").inputStream())
 
-        buildConfigField("String", "SOCKET_URL", "\"${prop.getProperty("SOCKET_URL")}\"")
+        buildConfigField("String", "SOCKET_URL", "\"${localProperties.getProperty("SOCKET_URL")}\"")
     }
 
     buildTypes {
