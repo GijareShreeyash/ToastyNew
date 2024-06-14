@@ -90,6 +90,20 @@ object SocketHandler {
         mSocket.emit(TRACK, jsonObject)
     }
 
+    fun emitCrash(
+        screenName: String,
+        properties: JSONObject
+    ) {
+        val jsonObject = JSONObject()
+        jsonObject.put(SESSION_ID, TEST_SESSION_ID)
+        val innerJSONObject = JSONObject()
+        innerJSONObject.put(SCREEN_NAME, screenName)
+        innerJSONObject.put(EVENT_NAME, screenName)
+        innerJSONObject.put(PROPERTIES, properties)
+        jsonObject.put(EVENT, innerJSONObject)
+        mSocket.emit(TRACK, jsonObject)
+    }
+
     private fun emitDevice() {
         val jsonObject = JSONObject()
         jsonObject.put(SESSION_ID, TEST_SESSION_ID)

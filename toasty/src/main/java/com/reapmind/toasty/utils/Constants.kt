@@ -13,6 +13,7 @@ object Constants {
     const val END_TIME: String = "endTime"
     const val PROPERTIES: String = "properties"
     const val TRACK: String = "track"
+    const val CRASH: String = "crash"
     const val DEVICE: String = "device"
     const val SESSION_ID: String = "sessionId"
     const val EVENT: String = "event"
