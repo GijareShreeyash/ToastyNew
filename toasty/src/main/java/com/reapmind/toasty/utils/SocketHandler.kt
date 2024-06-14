@@ -24,7 +24,7 @@ import java.util.Date
 import java.util.Locale
 
 const val NEW_USER_KEY: String = ""
-const val TEST_USER_KEY: String = "TEST_USER_KEY"
+var TEST_USER_KEY: String = "TEST_USER_KEY"
 const val TEST_SESSION_ID: String = "TEST_SESSION_ID"
 
 const val APPLICATION: String = "Application"
@@ -46,7 +46,8 @@ object SocketHandler {
     private lateinit var mSocket: Socket
     private lateinit var socketStartTime: Date
 
-    fun establishConnection() {
+    fun establishConnection(testUserKey: String) {
+        TEST_USER_KEY = testUserKey
         val opts = IO.Options()
         opts.path = "socket.io"
         mSocket = IO.socket("$SOCKET_URL?userId=${TEST_USER_KEY}")
