@@ -2,7 +2,7 @@ package com.reapmind.toasty.utils
 
 object Constants {
 
-    const val SOCKET_URL: String = "https://spotdev.reapmind.com"
+    const val SOCKET_URL: String = "https://ride.reapmind.com/"
 
     //Socket key names
     const val USER_ID: String = "userId"
