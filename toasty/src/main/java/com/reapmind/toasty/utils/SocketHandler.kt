@@ -24,7 +24,6 @@ import java.util.Date
 import java.util.Locale
 
 const val NEW_USER_KEY: String = ""
-var TEST_USER_KEY: String = "TEST_USER_KEY"
 const val TEST_SESSION_ID: String = "TEST_SESSION_ID"
 
 const val APPLICATION: String = "Application"
@@ -45,6 +44,7 @@ object SocketHandler {
 
     private lateinit var mSocket: Socket
     private lateinit var socketStartTime: Date
+    var TEST_USER_KEY: String = "TEST_USER_KEY"
 
     fun establishConnection(testUserKey: String) {
         TEST_USER_KEY = testUserKey
@@ -78,7 +78,7 @@ object SocketHandler {
         properties: JSONObject
     ) {
         val jsonObject = JSONObject()
-        jsonObject.put(SESSION_ID, TEST_SESSION_ID)
+        jsonObject.put(SESSION_ID, TEST_USER_KEY)
         val innerJSONObject = JSONObject()
         innerJSONObject.put(SCREEN_NAME, screenName)
         innerJSONObject.put(EVENT_NAME, screenName)
@@ -95,7 +95,7 @@ object SocketHandler {
         properties: JSONObject
     ) {
         val jsonObject = JSONObject()
-        jsonObject.put(SESSION_ID, TEST_SESSION_ID)
+        jsonObject.put(SESSION_ID, TEST_USER_KEY)
         val innerJSONObject = JSONObject()
         innerJSONObject.put(SCREEN_NAME, screenName)
         innerJSONObject.put(EVENT_NAME, screenName)
@@ -106,7 +106,7 @@ object SocketHandler {
 
     private fun emitDevice() {
         val jsonObject = JSONObject()
-        jsonObject.put(SESSION_ID, TEST_SESSION_ID)
+        jsonObject.put(SESSION_ID, TEST_USER_KEY)
         jsonObject.put(DEVICE, getDeviceInfo())
         mSocket.emit(DEVICE, jsonObject)
     }
