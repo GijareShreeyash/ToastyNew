@@ -1,7 +1,6 @@
 package com.reapmind.toasty.utils
 
 import android.os.Build
-import com.reapmind.toasty.BuildConfig
 import com.reapmind.toasty.utils.Constants.DATE_TIME_FORMAT
 import com.reapmind.toasty.utils.Constants.DEVICE
 import com.reapmind.toasty.utils.Constants.END_TIME
@@ -44,13 +43,14 @@ object SocketHandler {
 
     private lateinit var mSocket: Socket
     private lateinit var socketStartTime: Date
-    var TEST_USER_KEY: String = "TEST_USER_KEY"
+    private var KEY: String = "KEY"
+    private var TEST_USER_KEY: String = "TEST_USER_KEY"
 
-    fun establishConnection(testUserKey: String) {
-        TEST_USER_KEY = testUserKey
+    fun establishConnection(key: String) {
+        KEY = key
         val opts = IO.Options()
         opts.path = "socket.io"
-        mSocket = IO.socket("$SOCKET_URL?userId=${TEST_USER_KEY}")
+        mSocket = IO.socket("$SOCKET_URL?key=${KEY}&userId=${TEST_USER_KEY}")
         socketStartTime = Calendar.getInstance().time
         emitDevice()
         mSocket.connect()
@@ -79,7 +79,6 @@ object SocketHandler {
     ) {
         val jsonObject = JSONObject()
         jsonObject.put(SESSION_ID, TEST_SESSION_ID)
-        jsonObject.put("baseUrl", "${SOCKET_URL}/${TEST_USER_KEY}")
         val innerJSONObject = JSONObject()
         innerJSONObject.put(SCREEN_NAME, screenName)
         innerJSONObject.put(EVENT_NAME, screenName)
