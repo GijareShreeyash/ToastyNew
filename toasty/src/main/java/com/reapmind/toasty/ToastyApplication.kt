@@ -17,11 +17,11 @@ class ToastyApplication : Application() {
 
     private var listOfStartTime: MutableList<Long> = mutableListOf()
 
-    override fun onCreate() {
+    /*override fun onCreate() {
         super.onCreate()
 
         SocketHandler.establishConnection()
 
-    }
+    }*/
 
 }
