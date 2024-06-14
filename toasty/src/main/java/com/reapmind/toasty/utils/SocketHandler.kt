@@ -78,7 +78,8 @@ object SocketHandler {
         properties: JSONObject
     ) {
         val jsonObject = JSONObject()
-        jsonObject.put(SESSION_ID, TEST_USER_KEY)
+        jsonObject.put(SESSION_ID, TEST_SESSION_ID)
+        jsonObject.put("baseUrl", "${SOCKET_URL}/${TEST_USER_KEY}")
         val innerJSONObject = JSONObject()
         innerJSONObject.put(SCREEN_NAME, screenName)
         innerJSONObject.put(EVENT_NAME, screenName)
@@ -95,7 +96,7 @@ object SocketHandler {
         properties: JSONObject
     ) {
         val jsonObject = JSONObject()
-        jsonObject.put(SESSION_ID, TEST_USER_KEY)
+        jsonObject.put(SESSION_ID, TEST_SESSION_ID)
         val innerJSONObject = JSONObject()
         innerJSONObject.put(SCREEN_NAME, screenName)
         innerJSONObject.put(EVENT_NAME, screenName)
@@ -106,7 +107,7 @@ object SocketHandler {
 
     private fun emitDevice() {
         val jsonObject = JSONObject()
-        jsonObject.put(SESSION_ID, TEST_USER_KEY)
+        jsonObject.put(SESSION_ID, TEST_SESSION_ID)
         jsonObject.put(DEVICE, getDeviceInfo())
         mSocket.emit(DEVICE, jsonObject)
     }
